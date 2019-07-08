@@ -90,7 +90,6 @@ function httpInterceptor($q, $injector, AppModel, networkUtils, loggedOutSession
             $injector.get('notification').disableClose();
 
             return notifyError(error, errorMessage, {
-                templateUrl: require('../../../templates/notifications/badVersion.tpl.html'),
                 duration: '0'
             });
         }
