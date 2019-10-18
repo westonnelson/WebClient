@@ -49,9 +49,7 @@ function signupUserProcess(
     }
 
     function setUserLanguage() {
-        if ($location.search().language) {
-            return settingsApi.updateLocale({ Locale: gettextCatalog.getCurrentLanguage() });
-        }
+        return settingsApi.updateLocale({ Locale: gettextCatalog.getCurrentLanguage() });
     }
 
     async function doLogUserIn() {
