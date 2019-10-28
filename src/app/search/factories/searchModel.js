@@ -115,7 +115,12 @@ function searchModel(addressesModel, gettextCatalog, labelsModel, translator) {
     const build = (data = {}) => {
         const model = angular.copy(data);
         const attachments = +model.attachments;
-        const wildcard = +model.wildcard;
+        /*
+          API waits for 0 if required exact match,
+          checkbox is at true if user required an exact match
+          so we have to convert to the opposite
+         */
+        const wildcard = +!model.wildcard;
         const date = dateInterval({
             begin: extractDate(model.begin),
             end: extractDate(model.end)
@@ -125,7 +130,7 @@ function searchModel(addressesModel, gettextCatalog, labelsModel, translator) {
             ...resetParameters(),
             to: model.to,
             from: model.from,
-            keyword: model.keyword,
+            keyword: model.keyword || model.query,
             wildcard: isNaN(wildcard) ? undefined : wildcard,
             attachments: isNaN(attachments) || attachments === 2 ? undefined : attachments,
             address: (model.address || {}).ID,
