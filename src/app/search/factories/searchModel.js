@@ -115,7 +115,6 @@ function searchModel(addressesModel, gettextCatalog, labelsModel, translator) {
     const build = (data = {}) => {
         const model = angular.copy(data);
         const attachments = +model.attachments;
-
         /*
           API waits for 0 if required exact match,
           checkbox is at true if user required an exact match
