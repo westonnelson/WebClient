@@ -40,7 +40,6 @@ function searchForm(
             return (scope, el) => {
                 const { on, unsubscribe, dispatcher } = dispatchers(['dropdownApp']);
                 let dropdownID;
-
                 const getDropdownID = () =>
                     dropdownID || el[0].querySelector('[data-dropdown-id]').getAttribute('data-dropdown-id');
 
