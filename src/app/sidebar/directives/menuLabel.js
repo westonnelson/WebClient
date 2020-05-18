@@ -43,10 +43,11 @@ function menuLabel(dispatchers, $compile, labelsModel, $stateParams, $state, sid
 
     const makeTemplate = () => {
         const isContactState = $state.includes('secured.contacts');
-        const list = isContactState ? contactGroupModel.get() : labelsModel.get();
-        return _.sortBy(list, 'Order')
-            .map((item) => template(item, isContactState))
-            .join('');
+        const list = isContactState
+            ? _.sortBy(contactGroupModel.get(), 'Order')
+            : [..._.sortBy(labelsModel.get('folders'), 'Order'), ..._.sortBy(labelsModel.get('labels'), 'Order')];
+
+        return list.map((item) => template(item, isContactState)).join('');
     };
 
     return {
