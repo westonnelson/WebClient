@@ -142,7 +142,8 @@ const sentryConfig = (branch) => {
 
         return {
             ...SENTRY_CONFIG[env],
-            release
+            release,
+            dsn: SENTRY_CONFIG[env].sentry
         };
     }
     return {};
@@ -173,6 +174,7 @@ const getEnvDeploy = ({ env = process.env.NODE_ENV, config = true } = {}) => {
     const opt = {
         debug: env === 'dist' ? false : 'debug-app' in argv ? argv['debug-app'] : true,
         securedIframe: SECURED_IFRAME[API_SECURE_ARG],
+        secureUrl: SECURED_IFRAME[API_SECURE_ARG],
         apiUrl: apiUrl(API_URL_ARG, ARG_BRANCH),
         app_version: argv['app-version'] || CONFIG_DEFAULT.app_version,
         api_version: `${argv['api-version'] || CONFIG_DEFAULT.api_version}`,
