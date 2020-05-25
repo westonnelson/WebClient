@@ -21,6 +21,11 @@ RewriteRule . /index.html [NC,L]
     Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
 </Files>
 
+<Files "downloadSW.js">
+    Header set Service-Worker-Allowed "/drive"
+    Header set Service-Worker "script"
+</Files>
+
 <IfModule mod_mime.c>
   AddType application/font-woff2 .woff2
   AddType application/manifest+json .webmanifest
