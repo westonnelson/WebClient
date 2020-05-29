@@ -4,6 +4,7 @@ import _ from 'lodash';
 function searchForm(
     dispatchers,
     $state,
+    hotkeys,
     $stateParams,
     authentication,
     searchModel,
@@ -39,29 +40,28 @@ function searchForm(
 
             return (scope, el) => {
                 const { on, unsubscribe, dispatcher } = dispatchers(['dropdownApp']);
-                let dropdownID;
-
-                const getDropdownID = () =>
-                    dropdownID || el[0].querySelector('[data-dropdown-id]').getAttribute('data-dropdown-id');
 
                 const { AutoWildcardSearch } = mailSettingsModel.get();
+                let dropdownID;
+                const getDropdownID = () =>
+                    dropdownID || el[0].querySelector('[data-dropdown-id]').getAttribute('data-dropdown-id');
 
                 let folders = searchModel.getFolderList();
                 const addresses = searchModel.getAddresses();
                 const $input = el[0].querySelector('.search-form-fieldset-input');
 
                 scope.model = {
-                    wildcard: Boolean(AutoWildcardSearch),
+                    query: searchValue.generateSearchString(folders),
+                    wildcard: AutoWildcardSearch === 0,
                     folder: folders[0],
                     address: addresses[0],
                     attachments: '2'
                 };
-                scope.query = searchValue.generateSearchString(folders);
 
                 const onOpen = () => {
                     // Auto get data from the query
                     const parameters = {
-                        ...searchValue.extractParameters(scope.query, folders),
+                        ...searchValue.extractParameters(scope.model.query, folders),
                         ...$stateParams
                     };
 
@@ -86,7 +86,7 @@ function searchForm(
                 });
 
                 on('$stateChangeSuccess', () => {
-                    scope.query = searchValue.generateSearchString(folders);
+                    scope.model.query = searchValue.generateSearchString(folders);
                 });
 
                 on('dropdownApp', (e, { type, data }) => {
@@ -99,8 +99,20 @@ function searchForm(
                     }
 
                     if (type === 'state') {
-                        const action = data.isOpened ? 'add' : 'remove';
-                        el[0].classList[action](CLASS_OPEN);
+                        if (data.isOpened) {
+                            el[0].classList.add(CLASS_OPEN);
+                            hotkeys.pause();
+                        } else {
+                            // defer so on Submit we're able to deal with the advanced search
+                            _.defer(() => {
+                                el[0].classList.remove(CLASS_OPEN);
+                            }, 300);
+
+                            if (document.activeElement !== $input) {
+                                hotkeys.unpause();
+                            }
+                        }
+
                         data.isOpened && scope.$applyAsync(onOpen);
                     }
                 });
@@ -111,32 +123,59 @@ function searchForm(
                     }
                 });
 
-                const go = (state, data) => {
-                    $state.go(state, data);
+                on('search', (e, { type }) => {
+                    if (type === 'reset.search') {
+                        scope.$applyAsync(() => {
+                            scope.model.query = '';
+                            $input.focus();
+                        });
+                    }
+                });
+
+                const go = async (state, data) => {
+                    await $state.go(state, data);
                     dispatcher.dropdownApp('action', {
                         type: 'close',
                         id: dropdownID
                     });
+                    hotkeys.pause();
                 };
 
                 const onSubmit = () => {
-                    const query = scope.query;
                     const isOpen = el[0].classList.contains(CLASS_OPEN);
+                    const query = isOpen ? scope.model.keyword : scope.model.query;
                     const data = searchValue.extractParameters(query, folders);
                     const model = searchModel.build(scope.model);
-                    const state = getState(query || model.keyword || isOpen);
+                    const state = getState(query || isOpen);
+                    hotkeys.unpause();
 
                     if (!isOpen) {
-                        return go(state, searchModel.build(data));
+                        return go(
+                            state,
+                            searchModel.build({
+                                ...data,
+                                keyword: data.keyword || data.query
+                            })
+                        );
                     }
                     return go(state, model);
                 };
+
+                const onBlur = () => {
+                    const isOpen = el[0].classList.contains(CLASS_OPEN);
+                    !isOpen && hotkeys.unpause();
+                };
+
+                $input.addEventListener('focus', hotkeys.pause);
+                $input.addEventListener('blur', onBlur);
 
                 el.on('submit', onSubmit);
 
                 scope.$on('$destroy', () => {
                     el.off('submit', onSubmit);
                     unsubscribe();
+                    $input.removeEventListener('focus', hotkeys.pause);
+                    $input.removeEventListener('blur', onBlur);
                 });
             };
         }
