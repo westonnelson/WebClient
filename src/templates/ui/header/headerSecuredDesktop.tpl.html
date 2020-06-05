@@ -1,5 +1,8 @@
 <div class="headerSecuredDesktop-container flex w100 flex-nowrap flex-spacebetween">
-    <protonmail-logo class="headerSecuredDesktop-logo headerDesktop-logo"></protonmail-logo>
+    <div class="logo-container flex flex-spacebetween flex-nowrap flex-items-center">
+        <protonmail-logo class="headerSecuredDesktop-logo headerDesktop-logo"></protonmail-logo>
+        <apps-dropdown></apps-dropdown>
+    </div>
     <search-form ng-if="!('secured.contacts' | includedByState)"></search-form>
     <search-contact ng-if="'secured.contacts' | includedByState"></search-contact>
     <navigation></navigation>

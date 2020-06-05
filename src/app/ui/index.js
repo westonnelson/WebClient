@@ -1,6 +1,7 @@
 import autocompleteEmailsModel from './factories/autocompleteEmailsModel';
 import pageTitlesModel from './factories/pageTitlesModel';
 import appVersion from './directives/appVersion';
+import appsDropdown from './directives/appsDropdown';
 import atomLoader from './directives/atomLoader';
 import autocompleteEmail from './directives/autocompleteEmail';
 import autocompleteEmails from './directives/autocompleteEmails';
@@ -61,6 +62,7 @@ export default angular
     .module('proton.ui', [])
     .directive('viewTitle', viewTitle)
     .factory('onboardingModal', onboardingModal)
+    .directive('appsDropdown', appsDropdown)
     .directive('sortViewDropdown', sortViewDropdown)
     .directive('toogleModeElementsDropdown', toogleModeElementsDropdown)
     .directive('dropdownContent', dropdownContent)
