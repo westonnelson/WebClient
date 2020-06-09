@@ -2,7 +2,7 @@ import { PLANS, PAID_MEMBER_ROLE } from '../../constants';
 
 const { PLUS, PROFESSIONAL, VISIONARY } = PLANS.PLAN;
 const PLANS_LIST = [PLUS, PROFESSIONAL, VISIONARY].join(' ');
-const PLANS_LIST_FILL = ['fill-plus', 'fill-professional', 'fill-visionary'].join(' ');
+const PLANS_LIST_COLOR = ['color-plus', 'color-professional', 'color-visionary'].join(' ');
 
 /* @ngInject */
 function protonmailLogo(authentication, organizationModel, subscriptionModel, dispatchers) {
@@ -13,7 +13,6 @@ function protonmailLogo(authentication, organizationModel, subscriptionModel, di
         link(scope, element) {
             const { on, unsubscribe } = dispatchers();
             const planText = element[0].querySelector('#plan');
-            const noPLanTextClass = 'logo--withoutPlan';
 
             on('organizationChange', updateLogo);
             on('updateUser', updateLogo);
@@ -28,7 +27,7 @@ function protonmailLogo(authentication, organizationModel, subscriptionModel, di
                 const isMember = authentication.user.Role === PAID_MEMBER_ROLE;
 
                 let planName = organization.PlanName || '';
-                const planClass = 'fill-' + planName.toLowerCase();
+                const planClass = 'color-' + planName.toLowerCase();
                 const $planText = angular.element(planText);
 
                 if (isLifetime) {
@@ -38,10 +37,7 @@ function protonmailLogo(authentication, organizationModel, subscriptionModel, di
                     planName = '';
                 }
                 element.removeClass(PLANS_LIST).addClass(planName);
-                if (planName === '') {
-                    element.addClass(noPLanTextClass);
-                }
-                $planText.removeClass(PLANS_LIST_FILL).addClass(planClass);
+                $planText.removeClass(PLANS_LIST_COLOR).addClass(planClass);
                 planText.innerHTML = planName;
             }
 
