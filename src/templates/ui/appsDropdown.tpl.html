@@ -24,6 +24,18 @@
                         <span>ProtonCalendar</span>
                     </a>
                 </li>
+                <li class="dropDown-item appsDropdown-item">
+                    <a class="w100 appsDropdown-link big m0 bl p1 pt0-75 pb0-25 nodecoration" target="_self" href="/settings/subscription">
+                        <span class="flex flex-nowrap flex-items-center">
+                            <icon data-name="user-storage" class="mr0-5"></icon>
+                            <span>Storage capacity</span>
+                        </span>
+                        <div class="ml1-5">
+                            <meter class="meterbar is-thin bl mt0-25" min="0" low="50" high="80" max="100" optimum="0" ng-value="spacePercentage"></meter>
+                            <div class="smaller m0 opacity-50" ng-bind="spaceHuman"></div>
+                        </div>
+                    </a>
+                </li>
             </ul>
         </dropdown-content>
     </dropdown-container>
