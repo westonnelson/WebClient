@@ -18,17 +18,13 @@
             <span
                 ng-if="ctrl.step === 1"
                 translate-context="Title"
-                translate>Meet the app switcher</span>
+                translate>Introducing ProtonCalendar</span>
             <span
                 ng-if="ctrl.step === 2"
                 translate-context="Title"
-                translate>Introducing ProtonCalendar</span>
+                translate>Introducing dark mode</span>
             <span
                 ng-if="ctrl.step === 3"
-                translate-context="Title"
-                translate>Introducing Dark Mode</span>
-            <span
-                ng-if="ctrl.step === 4"
                 translate-context="Title"
                 translate>Have questions or feedback?</span>
         </h1>
@@ -39,54 +35,43 @@
             <p
                 class="block-info-standard"
                 translate-context="Info"
-                translate>ProtonMail 4.0 is a brand new inbox which contains many new features while continuing to improve the privacy and security that Proton is known for.</p>
+                translate>ProtonMail 4.0 is a brand new inbox that contains many new features while improving the privacy and security that Proton is known for.</p>
+            <p
+                class="block-info-standard"
+                translate-context="Info"
+                translate>Use the app switcher to quickly move between Proton apps without having to log back in.</p>
             <div>
                 <img src="/assets/v4-onboad/protonmail.png" class="w100">
             </div>
+        </div>
+
+       <div class="pm-modalContentInner" ng-if="ctrl.step === 1">
             <p
                 class="block-info-standard"
                 translate-context="Info"
-                translate>We would like to walk you through important new features and user experience improvements.</p>
-        </div>
-
-        <div class="pm-modalContentInner" ng-if="ctrl.step === 1">
-            <p class="block-info-standard" translate-context="Info" translate>The app switcher allows you to quickly switch between Proton apps while never having to log back in.</p>
-            <div>
-                <img src="/assets/v4-onboad/switcher.png" class="w100">
-            </div>
-            <p class="block-info-standard" translate-context="Info" translate>ProtonMail, ProtonContacts, ProtonCalendar, and all future Proton services (e.g. ProtonDrive) are just a couple of clicks away.</p>
-        </div>
-
-       <div class="pm-modalContentInner" ng-if="ctrl.step === 2">
-            <p
-                class="block-info-standard"
-                translate-context="Info"
-                translate>ProtonCalendar is a new encrypted calendar to go with ProtonMail and it is now available in Beta.</p>
+                translate>ProtonCalendar is now available in Beta. Because your calendar is encrypted, not even we can see the details of your events.</p>
             <div>
                 <img src="/assets/v4-onboad/calendar.png" class="w100">
             </div>
-            <p class="block-info-standard" translate-context="Info" translate>Now you can create events which are encrypted in a way that even we cannot see the details of your events.</p>
         </div>
 
-        <div class="pm-modalContentInner" ng-if="ctrl.step === 3">
+        <div class="pm-modalContentInner" ng-if="ctrl.step === 2">
             <p
                 class="block-info-standard"
                 translate-context="Info"
-                translate>Our dark mode is finally here and you can use it regardless of your device’s configuration.</p>
+                translate>Our dark mode is finally here! You can use it even if your device settings are not configured for dark mode.</p>
+            <p class="block-info-standard" translate-context="Info" translate>Switch dark mode on and off by going to Settings > Appearance > Themes</p>
             <div>
                 <img src="/assets/v4-onboad/darkmode.png" alt="" class="w100">
             </div>
-            <p class="block-info-standard" translate-context="Info" translate>Switch to the dark mode now or navigate at any point in time to Settings > Appearance > Themes</p>
         </div>
 
-        <div class="pm-modalContentInner" ng-if="ctrl.step === 4">
-            <p class="block-info-standard" translate-context="Info" translate>Can’t find something? Want to say hello? We are here to listen to your feedback.</p>
+        <div class="pm-modalContentInner" ng-if="ctrl.step === 3">
+            <p class="block-info-standard" translate-context="Info" translate>Reach us from within ProtonMail 4.0, right from the top bar. Reporting a bug will send your comments directly to our team.</p>
             <div>
                 <img src="/assets/v4-onboad/question.png" alt="" class="w100">
             </div>
-            <p class="block-info-standard" translate-context="Info" translate>Reach out to us from within ProtonMail v4, right from the top bar. Reporting a bug will send your comments directly to our team.</p>
         </div>
-
 
         <footer class="pm-modalFooter flex flex-spacebetween">
             <button
@@ -108,14 +93,14 @@
             <button
                 class="pm-button-blue disabled-if-network-activity"
                 ng-click="ctrl.next()"
-                ng-if="ctrl.step !== 4"
+                ng-if="ctrl.step !== 3"
                 translate-context="Action"
                 translate>Next</button>
 
             <button
                 class="pm-button-blue disabled-if-network-activity"
                 ng-click="ctrl.cancel()"
-                ng-if="ctrl.step === 4"
+                ng-if="ctrl.step === 3"
                 translate-context="Action"
                 translate>Start exploring</button>
         </footer>
