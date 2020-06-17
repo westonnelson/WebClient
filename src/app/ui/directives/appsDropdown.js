@@ -1,3 +1,5 @@
+import CONFIG from '../../config';
+
 /* @ngInject */
 function appsDropdown($filter, authentication) {
     const humanSize = $filter('humanSize');
@@ -11,6 +13,7 @@ function appsDropdown($filter, authentication) {
             const percentage = Math.round((UsedSpace * 100) / MaxSpace);
             scope.spacePercentage = isNaN(percentage) ? 0 : percentage;
             scope.spaceHuman = `${humanSize(UsedSpace)} / ${humanSize(MaxSpace)}`;
+            scope.hasDrive = CONFIG.featureFlags.includes('drive');
         }
     };
 }
