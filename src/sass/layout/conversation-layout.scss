@@ -1,1 +1,7 @@
 body:not(.hasStickyMessages) .stickyMessages-container { display: none; }
+
+.main {
+    overflow: initial;
+    z-index: inherit;
+    border-top-left-radius: 0;
+}

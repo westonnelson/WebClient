@@ -1,5 +1,6 @@
 .toolbarDesktop-container {
     display: flex;
+    border-top-left-radius: 4px;
 
     .toolbarDesktop-actions-right {
         @include flexRow();
