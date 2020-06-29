@@ -73,7 +73,7 @@ const typeofBranch = (branch = process.env.NODE_ENV_BRANCH) => {
         return 'red';
     }
 
-    if (type) {
+    if (type && type !== 'proxy') {
         return 'blue';
     }
     return 'dev';
