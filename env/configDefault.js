@@ -12,7 +12,7 @@ const locales = (() => {
 
 module.exports = {
     app_version: PACKAGE.version,
-    app_version_v4: PACKAGE['version-beta'],
+    app_version_v4: PACKAGE.version,
     api_version: '3',
     date_version: new Date().toGMTString(),
     year: new Date().getFullYear(),
