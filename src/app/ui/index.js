@@ -56,6 +56,7 @@ import headerSecuredDesktop from './directives/header/headerSecuredDesktop';
 import headerSecuredMobile from './directives/header/headerSecuredMobile';
 import navigation from './directives/navigation/navigation';
 import navigationBlackFriday from './directives/navigation/navigationBlackFriday';
+import navigationReport from './directives/navigation/navigationReport';
 import navigationUser from './directives/navigation/navigationUser';
 
 export default angular
@@ -119,4 +120,5 @@ export default angular
     .directive('headerSecuredMobile', headerSecuredMobile)
     .directive('navigation', navigation)
     .directive('navigationBlackFriday', navigationBlackFriday)
+    .directive('navigationReport', navigationReport)
     .directive('navigationUser', navigationUser).name;
